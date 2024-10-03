@@ -1,7 +1,7 @@
 # pokeLanding
   Maquetado | Estimacion: 20 minutos | Duracion: 20 minutos
 
-  Cargar cartas y sus datos en el body | Estimacion: 1 hora | Duracion:
+  Cargar cartas y sus datos en el body | Estimacion: 1 hora | Duracion: 1 hora
 
   Sistema de paginas de 25 pokemons | Estimacion: 2 horas | Duracion:
 
