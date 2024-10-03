@@ -1,30 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PokéLanding</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            <h1>PokéLanding</h1>
-        </div>
-        <div class="search-container">
-            <input type="text" placeholder="Buscar Pokémon...">
-        </div>
+      <div class="logo">
+        <h1>PokéLanding</h1>
+      </div>
+      <div class="search-container">
+        <input type="text" placeholder="Buscar Pokémon..." />
+      </div>
     </header>
 
     <main>
-        <div class="pokemon-container" id="pokemon-container"></div>
-        <div class="pagination">
-            <button id="prev-button">Anterior</button>
-            <button id="next-button">Siguiente</button>
-        </div>
+      <div class="pokemon-container" id="pokemon-container"></div>
+      <div class="pagination">
+        <button id="prev-button">Anterior</button>
+        <button id="next-button">Siguiente</button>
+      </div>
     </main>
 
+    <div id="loadingOverlay" class="overlay"><div class="loader"></div></div>
+
     <script src="script.js" type="module"></script>
-</body>
+  </body>
 </html>
