@@ -3,7 +3,7 @@ import { pokemonTypesStyles } from "./typesStyles.js";
 const pokemonContainer = document.getElementById("pokemon-container");
 const prevButton = document.getElementById("prev-button");
 const nextButton = document.getElementById("next-button");
-const loadingOverlay = document.getElementById("loadingOverlay");
+const loadingOverlay = document.getElementById("loading-overlay");
 const searchButton = document.getElementById("search-button");
 const searchInput = document.querySelector(".search-input");
 const numberPage = document.getElementById("number-page");
@@ -130,6 +130,7 @@ async function searchPokemons(query) {
 }
 
 function showCurrentPage() {
+  showLoading();
   pokemonContainer.innerHTML = "";
   const start = currentOffset;
   const end = currentOffset + limit;
@@ -139,7 +140,6 @@ function showCurrentPage() {
     await setPokemonCard(pokemon.url, pokemon.name);
   });
   Promise.all(pokemonPromises).then(() => hideLoading());
-
   updateButtons();
 }
 
