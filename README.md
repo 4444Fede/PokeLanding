@@ -11,4 +11,4 @@
 
   Estilo del main | Estimacion: 30 minutos | Duracion: 20 minutos
 
-  Estilo del header | Estimacion: 40 minutos | Duracion:
+  Estilo del header | Estimacion: 40 minutos | Duracion: 30 minutos
