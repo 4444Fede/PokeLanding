@@ -146,6 +146,7 @@ function showCurrentPage() {
     return;
   }
   hideEmptyState();
+  showLoading();
   pokemonContainer.innerHTML = "";
   const start = currentOffset;
   const end = currentOffset + limit;
@@ -155,7 +156,6 @@ function showCurrentPage() {
     await setPokemonCard(pokemon.url, pokemon.name);
   });
   Promise.all(pokemonPromises).then(() => hideLoading());
-
   updateButtons();
 }
 
