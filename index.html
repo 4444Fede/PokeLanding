@@ -13,7 +13,7 @@
     <header>
       <div class="logo">
         <img src="icons/pokemon-icon.svg" width="50px" alt="pokeball" />
-        <h1>PokéLanding</h1>
+        <h1>PokeLanding</h1>
       </div>
       <div class="search-container">
         <input class="search-input" placeholder="Search a pokemon..." type="text"/>
@@ -30,6 +30,11 @@
       </div>
     </main>
 
+    <div id="empty-state" class="empty hidden">
+      <img src="images/pikachu-sad.png" alt="Sad Pikachu" class="empty-state-image" />
+      <h2>El Pikachu que buscabas no existe :(</h2>
+    </div>
+    
     <div id="loading-overlay" class="overlay"><div class="loader"></div></div>
 
     <script src="script.js" type="module"></script>
