@@ -16,56 +16,52 @@ function hideLoading() {
   loadingOverlay.classList.add("hidden");
 }
 
-async function fetchPokemons() {
-  try {
-    showLoading();
-    const response = await fetch(
-      `${apiBaseUrl}?offset=${currentOffset}&limit=${limit}`
-    );
-    const data = await response.json();
-    const pokemons = data.results;
-
-    pokemonContainer.innerHTML = "";
-
-    for (let pokemon of pokemons) {
-      const pokeData = await fetchPokemonData(pokemon.url);
-      createPokemonCard(pokeData);
-    }
-  } catch (error) {
-    console.error("Error fetching Pokémon data:", error);
-  } finally {
-    hideLoading();
-  }
+async function getPokemonInformation(url) {
+  return fetch(url)
+    .then((response) => response.json())
+    .catch((error) => {
+      console.error("Error fetching the api", error);
+    });
 }
 
-async function fetchPokemonData(url) {
-  try {
-    const response = await fetch(url);
-    return await response.json();
-  } catch (error) {
-    console.error("Error fetching Pokémon details:", error);
-    throw error;
-  }
+async function setPokemonCards(pokemons) {
+  const pokemonPromises = pokemons.results.map(async (element) => {
+    await setPokemonCard(element.url, element.name);
+  });
+
+  // Esperamos a que todas las cartas se hayan creado
+  await Promise.all(pokemonPromises);
+
+  // Escondemos el overlay cuando todas las cartas se han creado
+  hideLoading();
 }
 
-function createPokemonCard(pokemon) {
-  const pokemonCard = document.createElement("div");
-  pokemonCard.classList.add("pokemon-card");
+async function setPokemonCard(url, name) {
+  let div = document.createElement("div");
+  div.classList.add("pokemon-card");
+  pokemonContainer.append(div);
 
-  const pokemonImage = document.createElement("img");
-  pokemonImage.src = pokemon.sprites.front_default;
+  let pokemonData = await getPokemonInformation(url);
 
-  const pokemonName = document.createElement("h3");
-  pokemonName.textContent =
-    pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
+  let pokemonImg = document.createElement("img");
+  pokemonImg.src = pokemonData.sprites.front_default;
 
-  const pokemonTypesContainer = document.createElement("div");
+  let pokemonName = document.createElement("h3");
+  pokemonName.textContent = name[0].toUpperCase() + name.slice(1);
+
+  let pokemonTypesContainer = setPokemonTypes(pokemonData);
+
+  div.append(pokemonImg);
+  div.append(pokemonName);
+  div.append(pokemonTypesContainer);
+}
+
+function setPokemonTypes(pokemonData) {
+  let pokemonTypesContainer = document.createElement("div");
   pokemonTypesContainer.classList.add("pokemon-types");
 
-  pokemon.types.forEach((typeInfo) => {
-    const pokemonType = typeInfo.type.name;
-
-    const pokemonTypeElement = document.createElement("div");
+  getPokemonTypes(pokemonData).forEach(function (pokemonType) {
+    let pokemonTypeElement = document.createElement("div");
     pokemonTypeElement.classList.add("pokemon-type");
 
     const typeStyle = pokemonTypesStyles[pokemonType];
@@ -83,10 +79,27 @@ function createPokemonCard(pokemon) {
     pokemonTypesContainer.appendChild(pokemonTypeElement);
   });
 
-  pokemonCard.appendChild(pokemonImage);
-  pokemonCard.appendChild(pokemonName);
-  pokemonCard.appendChild(pokemonTypesContainer);
-  pokemonContainer.appendChild(pokemonCard);
+  return pokemonTypesContainer;
+}
+
+function getPokemonTypes(pokemonData) {
+  return pokemonData.types.map(function (type) {
+    return type.type.name;
+  });
+}
+
+async function fetchPokemons() {
+  try {
+    showLoading();
+    const data = await getPokemonInformation(
+      `${apiBaseUrl}?offset=${currentOffset}&limit=${limit}`
+    );
+    pokemonContainer.innerHTML = "";
+    await setPokemonCards(data);
+  } catch (error) {
+    console.error("Error fetching Pokémon data:", error);
+    hideLoading(); // En caso de error, ocultamos el overlay
+  }
 }
 
 function updateButtons() {
