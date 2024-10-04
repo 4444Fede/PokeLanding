@@ -3,10 +3,12 @@ import { pokemonTypesStyles } from "./typesStyles.js";
 const pokemonContainer = document.getElementById("pokemon-container");
 const prevButton = document.getElementById("prev-button");
 const nextButton = document.getElementById("next-button");
-const loadingOverlay = document.getElementById("loadingOverlay");
+const loadingOverlay = document.getElementById("loading-overlay");
 const searchButton = document.getElementById("search-button");
 const searchInput = document.querySelector(".search-input");
 const numberPage = document.getElementById("number-page");
+const emptyState = document.getElementById("empty-state");
+const mainContainer = document.querySelector('main')
 
 const apiBaseUrl = `https://pokeapi.co/api/v2/pokemon`;
 const limit = 25;
@@ -119,7 +121,6 @@ async function searchPokemons(query) {
     totalPages = Math.ceil(filteredResults.length / limit);
     currentOffset = 0;
     isSearchMode = true;
-
     showCurrentPage();
     hideLoading();
     updatePageNumber();
@@ -129,7 +130,22 @@ async function searchPokemons(query) {
   }
 }
 
+function showEmptyState() {
+  emptyState.classList.remove("hidden");
+  mainContainer.classList.add("hidden");
+}
+
+function hideEmptyState() {
+  emptyState.classList.add("hidden");
+  mainContainer.classList.remove("hidden");
+}
+
 function showCurrentPage() {
+  if (filteredResults.length === 0) {
+    showEmptyState();
+    return;
+  }
+  hideEmptyState();
   pokemonContainer.innerHTML = "";
   const start = currentOffset;
   const end = currentOffset + limit;
@@ -143,16 +159,13 @@ function showCurrentPage() {
   updateButtons();
 }
 
+
 searchButton.addEventListener("click", () => {
   const query = searchInput.value.trim();
   if (query) {
     searchPokemons(query);
   } else {
-    isSearchMode = false;
-    currentOffset = 0;
-    fetchPokemons();
-    updateButtons();
-    updatePageNumber();
+    resetSearch()
   }
 });
 
@@ -162,14 +175,19 @@ searchInput.addEventListener("keydown", (event) => {
     if (query) {
       searchPokemons(query);
     } else {
-      isSearchMode = false;
-      currentOffset = 0;
-      fetchPokemons();
-      updateButtons();
-      updatePageNumber();
+      resetSearch()
     }
   }
 });
+
+function resetSearch(){
+  isSearchMode = false;
+  currentOffset = 0;
+  hideEmptyState()
+  fetchPokemons();
+  updateButtons();
+  updatePageNumber();
+}
 
 function updateButtons() {
   if (isSearchMode) {

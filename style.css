@@ -227,6 +227,29 @@ button:disabled {
   }
 }
 
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+}
+
+.empty h2 {
+  font-size: 28px;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.empty-state-image {
+  width: 180px;
+  height: 180px;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
 .hidden {
   display: none;
 }
