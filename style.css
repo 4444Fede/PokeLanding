@@ -14,10 +14,16 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
-  background-color: #1e293b;
+  padding: 20px;
+  background-color: #FB1B1B;
   color: #f8fafc;
   box-shadow: 0 4px 6px #0000001a;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .logo h1 {
@@ -26,14 +32,52 @@ header {
   letter-spacing: 1px;
 }
 
-.search-container input {
-  padding: 8px;
+.search-container{
+  display: flex;
+  align-items: center;
+}
+
+.search-input{
+  padding: 10px;
   font-size: 16px;
   width: 220px;
-  border-radius: 8px;
+  border-radius: 8px 0 0 8px;
   border: 1px solid #cbd5e1;
-  background-color: #e2e8f0;
+  background-color: #FFF5EE;
   color: #1e293b;
+}
+
+.search-button{
+  padding: 19.5px 19px 19px 19px;
+  border-radius: 0 8px 8px 0;
+  border: 1px solid #cbd5e1;
+  background-color: #FFF5EE;
+  position: relative;
+}
+
+.search-button::before{
+  content: '';
+  position: absolute;
+  border: 2px solid #899499;
+  border-radius: 100%;
+  padding: 7px;
+  top: 20%;
+  left: 25%;
+}
+
+.search-button::after{
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 12px;
+  top: 50%;
+  left: 65%;
+  transform: rotate(315deg);
+  background-color: #899499;
+}
+
+.search-button:hover{
+  background-color: #ececec;
 }
 
 .pokemon-container {
@@ -41,12 +85,12 @@ header {
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  padding: 40px;
+  padding: 25px;
   background-color: #f3f4f6;
 }
 
 .pokemon-card {
-  background-color: #fff;
+  background-color: #F4F4F4;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
   box-shadow: 0 4px 8px #0000000d;
@@ -93,6 +137,8 @@ header {
   display: flex;
   gap: 5px;
   align-items: center;
+  font-family: "Anek Malayalam", sans-serif;
+  font-weight: 700;
   color: #fff;
   padding: 6px 10px;
   border-radius: 12px;
@@ -106,23 +152,23 @@ header {
 
 .pagination {
   display: flex;
+  gap: 20px;
   justify-content: center;
   margin: 30px 0;
 }
 
 button {
   padding: 12px 18px;
-  margin: 0 10px;
   cursor: pointer;
   border: none;
-  background-color: #2563eb;
-  color: white;
+  background-color: #FB1B1B;
+  color: #FFFFFF;
   border-radius: 8px;
   transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #1e40af;
+  background-color: #de1111;
 }
 
 button:disabled {
