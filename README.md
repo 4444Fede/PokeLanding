@@ -3,7 +3,7 @@
 
   Cargar cartas y sus datos en el body | Estimacion: 1 hora | Duracion: 1 hora
 
-  Sistema de paginas de 25 pokemons | Estimacion: 2 horas | Duracion:
+  Sistema de paginas de 25 pokemons | Estimacion: 2 horas | Duracion: 2 horas y 30 minutos
 
   Funcion de busqueda del header | Estimacion: 1 hora | Duracion:
 
