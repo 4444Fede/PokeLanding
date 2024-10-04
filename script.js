@@ -6,13 +6,14 @@ const nextButton = document.getElementById("next-button");
 const loadingOverlay = document.getElementById("loadingOverlay");
 const searchButton = document.getElementById("search-button");
 const searchInput = document.querySelector(".search-input");
+const numberPage = document.getElementById("number-page");
 
 const apiBaseUrl = `https://pokeapi.co/api/v2/pokemon`;
 const limit = 25;
 let currentOffset = 0;
-let filteredResults = []; 
+let filteredResults = [];
 let totalPages = 0;
-let isSearchMode = false; 
+let isSearchMode = false;
 
 function showLoading() {
   loadingOverlay.classList.remove("hidden");
@@ -99,6 +100,7 @@ async function fetchPokemons() {
     pokemonContainer.innerHTML = "";
     await setPokemonCards(data);
     hideLoading();
+    updatePageNumber();
   } catch (error) {
     console.error("Error fetching Pokémon data:", error);
     hideLoading();
@@ -108,9 +110,7 @@ async function fetchPokemons() {
 async function searchPokemons(query) {
   try {
     showLoading();
-    const data = await getPokemonInformation(
-      `${apiBaseUrl}?offset=0&limit=1302`
-    );
+    const data = await getPokemonInformation(`${apiBaseUrl}?offset=0&limit=1302`);
 
     filteredResults = data.results.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(query.toLowerCase())
@@ -122,6 +122,7 @@ async function searchPokemons(query) {
 
     showCurrentPage();
     hideLoading();
+    updatePageNumber();
   } catch (error) {
     console.error("Error fetching Pokémon data:", error);
     hideLoading();
@@ -148,9 +149,10 @@ searchButton.addEventListener("click", () => {
     searchPokemons(query);
   } else {
     isSearchMode = false;
-    currentOffset = 0; 
+    currentOffset = 0;
     fetchPokemons();
     updateButtons();
+    updatePageNumber();
   }
 });
 
@@ -164,10 +166,10 @@ searchInput.addEventListener("keydown", (event) => {
       currentOffset = 0;
       fetchPokemons();
       updateButtons();
+      updatePageNumber();
     }
   }
 });
-
 
 function updateButtons() {
   if (isSearchMode) {
@@ -179,6 +181,11 @@ function updateButtons() {
   }
 }
 
+function updatePageNumber() {
+  const currentPage = Math.floor(currentOffset / limit) + 1;
+  numberPage.textContent = currentPage;
+}
+
 prevButton.addEventListener("click", () => {
   if (currentOffset > 0) {
     currentOffset -= limit;
@@ -188,6 +195,7 @@ prevButton.addEventListener("click", () => {
       fetchPokemons();
     }
     updateButtons();
+    updatePageNumber();
   }
 });
 
@@ -199,9 +207,11 @@ nextButton.addEventListener("click", () => {
     fetchPokemons();
   }
   updateButtons();
+  updatePageNumber();
 });
 
 window.addEventListener("load", function () {
   fetchPokemons();
   updateButtons();
+  updatePageNumber();
 });
