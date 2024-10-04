@@ -5,7 +5,7 @@
 
   Sistema de paginas de 25 pokemons | Estimacion: 2 horas | Duracion: 2 horas y 30 minutos
 
-  Funcion de busqueda del header | Estimacion: 1 hora | Duracion:
+  Funcion de busqueda del header | Estimacion: 1 hora | Duracion: 1 hora y 30 minutos
 
   Estilo de las cartas | Estimacion: 40 minutos | Duracion: 20 minutos
 
