@@ -7,8 +7,8 @@
 
   Funcion de busqueda del header | Estimacion: 1 hora | Duracion:
 
-  Estilo de las cartas | Estimacion: 40 minutos | Duracion:
+  Estilo de las cartas | Estimacion: 40 minutos | Duracion: 20 minutos
 
-  Estilo del main | Estimacion: 30 minutos | Duracion:
+  Estilo del main | Estimacion: 30 minutos | Duracion: 20 minutos
 
   Estilo del header | Estimacion: 40 minutos | Duracion:
