@@ -8,7 +8,7 @@ const searchButton = document.getElementById("search-button");
 const searchInput = document.querySelector(".search-input");
 const numberPage = document.getElementById("number-page");
 const emptyState = document.getElementById("empty-state");
-const mainContainer = document.querySelector('main')
+const mainContainer = document.querySelector("main");
 
 const apiBaseUrl = `https://pokeapi.co/api/v2/pokemon`;
 const limit = 25;
@@ -112,7 +112,9 @@ async function fetchPokemons() {
 async function searchPokemons(query) {
   try {
     showLoading();
-    const data = await getPokemonInformation(`${apiBaseUrl}?offset=0&limit=1302`);
+    const data = await getPokemonInformation(
+      `${apiBaseUrl}?offset=0&limit=1302`
+    );
 
     filteredResults = data.results.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(query.toLowerCase())
@@ -159,31 +161,32 @@ function showCurrentPage() {
   updateButtons();
 }
 
-
 searchButton.addEventListener("click", () => {
   const query = searchInput.value.trim();
-  if (query) {
-    searchPokemons(query);
-  } else {
-    resetSearch()
-  }
+  handleSearch(query);
+  scrollToTop();
 });
 
 searchInput.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     const query = searchInput.value.trim();
-    if (query) {
-      searchPokemons(query);
-    } else {
-      resetSearch()
-    }
+    handleSearch(query);
+    scrollToTop();
   }
 });
 
-function resetSearch(){
+function handleSearch(query) {
+  if (query) {
+    searchPokemons(query);
+  } else {
+    resetSearch();
+  }
+}
+
+function resetSearch() {
   isSearchMode = false;
   currentOffset = 0;
-  hideEmptyState()
+  hideEmptyState();
   fetchPokemons();
   updateButtons();
   updatePageNumber();
@@ -207,29 +210,34 @@ function updatePageNumber() {
 prevButton.addEventListener("click", () => {
   if (currentOffset > 0) {
     currentOffset -= limit;
-    if (isSearchMode) {
-      showCurrentPage();
-    } else {
-      fetchPokemons();
-    }
-    updateButtons();
-    updatePageNumber();
+    handlePage();
   }
 });
 
 nextButton.addEventListener("click", () => {
   currentOffset += limit;
+  handlePage();
+});
+
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+  });
+}
+
+function handlePage() {
   if (isSearchMode) {
     showCurrentPage();
   } else {
     fetchPokemons();
   }
+  scrollToTop();
   updateButtons();
   updatePageNumber();
-});
-
+}
 window.addEventListener("load", function () {
   fetchPokemons();
+  scrollToTop();
   updateButtons();
   updatePageNumber();
 });
